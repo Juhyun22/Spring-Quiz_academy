@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.quiz.lesson04.dao.SellerDAO">
+	<insert id="insertSeller" parameterType="map">
+		INSERT INTO `seller`
+		(
+			`nickname`
+			, `profileImgUrl`
+			, `temperature`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{nickname}
+			, #{profileImgUrl}
+			, #{temperature}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<select id="getLastSeller" resultType="com.quiz.lesson04.model.Seller">
+		SELECT
+			`id`
+			, `nickname`
+			, `profileImgUrl`
+			, `temperature`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`seller`
+		WHERE
+			`id` = #{id}
+		ORDER BY `id` DESC
+		LIMIT 1
+	</select>
+</mapper>
