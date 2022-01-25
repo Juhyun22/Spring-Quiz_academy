@@ -12,5 +12,7 @@ public interface SellerDAO {
 			@Param("profileImgUrl") String profileImgUrl, 
 			@Param("temperature") Double temperature);
 	
-	public Seller getLastSeller(@Param("id") int id);
+	public Seller selectLastSeller();
+	
+	public Seller selectSellerById(@Param("id") int id);
 }
