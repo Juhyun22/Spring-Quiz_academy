@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Lesson05Quiz01Controller {
 	
+	// http://localhost/lesson05/quiz01
 	@RequestMapping("/quiz01")
 	public String quiz1() {
 		return "lesson05/quiz01";
