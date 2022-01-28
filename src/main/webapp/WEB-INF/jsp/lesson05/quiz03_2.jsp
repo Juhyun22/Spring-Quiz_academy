@@ -23,13 +23,13 @@
 			<thead>
 				<tr>
 					<th>사용처</th>
-					<th>가격<th>
+					<th>가격</th>
 					<th>사용 날짜</th>
 					<th>할부</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="bill" items="${cardBills}" varStatus="status">
+				<c:forEach var="bill" items="${cardBills}">
 				<tr>
 					<td>${bill.store}</td>
 					
@@ -40,7 +40,6 @@
 					<td>
 						<fmt:parseDate value="${bill.date}" pattern="yyyy-MM-dd" var="parseDate"/>
 						<fmt:formatDate value="${parseDate}" pattern="yyyy년 MM월 dd일"/>
-						${date}
 					</td>
 					
 					<td>${bill.installment}</td>

@@ -21,6 +21,12 @@ public class Lesson05Quiz03Controller {
 		candidates.add(173942);
 		candidates.add(563057);
 		
+		int totalCount = 0;
+		for (Integer candidate : candidates) {
+			totalCount += candidate;
+		}
+		
+		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("candidates", candidates);
 		
 		return "lesson05/quiz03_1";

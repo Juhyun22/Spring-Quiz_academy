@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>후보자 득표율</title>
+	<title>회원 정보 리스트</title>
 	
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -18,25 +18,59 @@
 </head>
 <body>
 	<div class="container">
-		<h1>1. 후보자 득표율</h1>
+		<h1>회원 정보 리스트</h1>
 		
 		<table class="table text-center">
 			<thead>
 				<tr>
-					<th>기호</th>
-					<th>득표수</th>
-					<th>득표율</th>
+					<th>No</th>
+					<th>이름</th>
+					<th>전화 번호</th>
+					<th>국적</th>
+					<th>이메일</th>
+					<th>자기소개</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="candidate" items="${candidates}" varStatus="status">
+				<c:forEach var="member" items="${members}" varStatus="status">
 					<tr>
+						<%-- No --%>
 						<td>${status.count}</td>
+					
+						<%-- 이름 --%>
+						<td>${member.name}</td>
+						
+						<%-- 전화 번호 --%>
 						<td>
-							<fmt:formatNumber value="${candidate}"/>
+							<c:choose>
+								<c:when test="${fn:startsWith(member.phoneNumber, '010')}">
+									${member.phoneNumber}
+								</c:when>
+								<c:otherwise>
+									유효하지 않은 전화번호 
+								</c:otherwise>
+							</c:choose>
 						</td>
+						
+						<%-- 국적 --%>
 						<td>
-							<fmt:formatNumber value="${candidate / totalCount}" type="percent" />
+							${fn:replace(member.nationality, "삼국시대", "삼국 - ")}
+						</td>
+						
+						<%-- 이메일 --%>
+						<td>
+							<c:set var="email" value="${member.email}" />
+							<b>${fn:split(email, "@")[0]}</b>@${fn:split(email, "@")[1]}
+						</td>
+						
+						<%-- 자기소개 --%>
+						<td class="text-left">
+							<c:if test="${fn:length(member.introduce) > 15}">
+								${fn:substring(member.introduce, 0, 15)} ...
+							</c:if>
+							<c:if test="${fn:length(member.introduce) <= 15}">
+								${member.introduce}
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>
