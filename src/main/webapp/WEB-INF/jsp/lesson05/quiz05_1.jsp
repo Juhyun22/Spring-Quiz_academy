@@ -19,7 +19,55 @@
 </head>
 <body>
 	<div class="container">
-		${weatherinfo.date}
+		<div class="d-flex">
+			<!-- menu -->
+			<section class="col-1">
+			</section>
+			<section class="col-11">
+				<table class="table text-center">
+					<thead>
+						<tr>
+							<th>날짜</th>
+							<th>날씨</th>
+							<th>기온</th>
+							<th>강수량</th>
+							<th>미세먼지</th>
+							<th>풍속</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${WeatherHistoryList}" var="item">
+						<tr>
+							<td>
+								<fmt:formatDate value="${item.date}" pattern="yyyy년 M월 d일"/>
+							</td>
+							<td>${item.weather}
+								<c:choose>
+									<c:when test="${item.weather == '맑음'}">
+										<img src="/images/sunny.jpeg" alt="맑음아이콘">
+									</c:when>
+									<c:when test="${item.weather == '구름조금'}">
+										<img src="/images/partlyCloudy.jpeg" alt="구름조금아이콘">
+									</c:when>
+									<c:when test="${item.weather == '흐림'}">
+										<img src="/images/cloudy.jpeg" alt="흐림아이콘">
+									</c:when>
+									<c:when test="${item.weather == '비'}">
+										<img src="/images/rainy.jpeg" alt="비아이콘">
+									</c:when>
+								</c:choose>
+							</td>
+							<td>${item.temperatures}°C</td>
+							<td>${item.precipitation}mm</td>
+							<td>${item.microDust}</td>
+							<td>${item.windSpeed}km/h</td>
+						</tr>
+						</c:forEach>	
+					</tbody>
+				</table>
+			</section>
+		</div>
+		<footer></footer>
 	</div>
 </body>
 </html>
