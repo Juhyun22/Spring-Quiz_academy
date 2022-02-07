@@ -17,4 +17,8 @@ public class StoreBO {
 	public List<Store> getStoreList() {
 		return storeDAO.selectStoreList();
 	}
+	
+	public Store getStoreListById(int id) {
+		return storeDAO.selectStoreListById(id);
+	}
 }
