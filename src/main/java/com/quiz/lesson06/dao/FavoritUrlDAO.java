@@ -14,5 +14,5 @@ public interface FavoritUrlDAO {
 			@Param("name") String name, 
 			@Param("url") String url);
 	
-	public List<FavoritUrl> selectFavoritUrl();
+	public List<FavoritUrl> selectFavoritUrlList();
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>즐겨찾기 추가하기</title>
+	<title>즐겨찾기 추가</title>
 	
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -28,7 +28,7 @@
 			<input type="text" id="url" name="url" class="form-control" placeholder="즐겨찾기 주소">
 		</div>
 		
-		<button id="submitBtn" class="btn btn-success form-control">추가</button>
+		<button id="submitBtn" class="btn btn-success btn-block">추가</button>
 	</div>
 	
 <script>
@@ -47,13 +47,25 @@
 				return;
 			}
 			
+			// http도 아니고 https도 아닐 때 => alert();을 띄워야함 
+			if (url.startsWith('http') == false && url.startsWith('https') == false) {
+				alert("주소 형식이 잘못되었습니다.");
+				return;
+			}
+			
+			// 서버 호출 
 			$.ajax({
-				type : 'GET'
-				, url : '/lesson06/quiz01_2'
-				, data : {'name':name, 'url':url}
+				type : "POST"
+				, url : "/lesson06/quiz01_2"
+				, data : {"name":name, "url":url}
 				, success : function(data) {
-					// alert("success!!");
-					location.href = "http://localhost/lesson06/quiz01_3"
+					// alert(data.result);
+					if (data.result == 'success') {
+						// 목록 화면으로 이동 
+						location.href = "/lesson06/quiz01_3"
+					} else {
+						alert("error");
+					}
 				}
 				, error : function(e) {
 					alert("error : " + e);

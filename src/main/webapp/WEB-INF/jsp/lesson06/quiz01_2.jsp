@@ -38,7 +38,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${favoritUrl}" var="item" varStatus="status">
+				<c:forEach items="${favoritUrlList}" var="item" varStatus="status">
 					<tr>
 						<td>${status.count}</td>
 						<td>${item.name}</td>

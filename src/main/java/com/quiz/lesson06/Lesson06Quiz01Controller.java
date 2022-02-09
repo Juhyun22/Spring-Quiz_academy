@@ -1,11 +1,13 @@
 package com.quiz.lesson06;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +22,7 @@ public class Lesson06Quiz01Controller {
 	private FavoritUrlBO favoritUrlBO;
 
 	// 값 받는 view
+	// 즐겨찾기 추가 화면 
 	// http://localhost/lesson06/quiz01_1
 	@RequestMapping("/lesson06/quiz01_1")
 	public String addFavoritView() {
@@ -27,24 +30,28 @@ public class Lesson06Quiz01Controller {
 	}
 	
 	// 데이터 추가하는 view 
-	@GetMapping("/lesson06/quiz01_2")
+	// 즐겨찾기 추가 기능 - AJAX 호출로 들어오는 요청  
+	@PostMapping("/lesson06/quiz01_2")
 	@ResponseBody
-	public String addFavoritUrl(
+	public Map<String, String> addFavoritUrl(
 			@RequestParam("name") String name,
 			@RequestParam("url") String url) {
 		
 		// insert db
 		favoritUrlBO.addFavoritUrl(name, url);
 		
-		return "";
+		// return map => return json string
+		Map<String, String> result = new HashMap<>();
+		result.put("result", "success");
+		return result;
 	}
 	
-	// 결과화면 
+	// 즐겨찾기 목록 화면 
 	@RequestMapping("/lesson06/quiz01_3") 
 	public String getFavoritUrl(Model model) {
 		// select db
-		List<FavoritUrl> favoritUrl = favoritUrlBO.getFavoritUrl();
-		model.addAttribute("favoritUrl", favoritUrl);
+		List<FavoritUrl> favoritUrlList = favoritUrlBO.getFavoritUrlList();
+		model.addAttribute("favoritUrlList", favoritUrlList);
 		
 		return "lesson06/quiz01_2";
 	}

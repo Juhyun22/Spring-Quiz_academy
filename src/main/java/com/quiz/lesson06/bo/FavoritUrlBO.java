@@ -18,7 +18,7 @@ public class FavoritUrlBO {
 		favoritUrlDAO.insertFavoritUrl(name, url);
 	}
 	
-	public List<FavoritUrl> getFavoritUrl() {
-		return favoritUrlDAO.selectFavoritUrl();
+	public List<FavoritUrl> getFavoritUrlList() {
+		return favoritUrlDAO.selectFavoritUrlList();
 	}
 }
