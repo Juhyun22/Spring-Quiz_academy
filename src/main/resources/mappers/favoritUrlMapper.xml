@@ -30,4 +30,26 @@
 		FROM
 			`favorit_url`
 	</select>
+	
+	<select id="existFavoritByUrl" parameterType="string" resultType="boolean">
+		SELECT
+			count(1)
+		FROM
+			`favorit_url`
+		WHERE
+			`url` = #{url}
+	</select>
+	
+	<select id="selectFavoritByUrl" parameterType="string" resultType="com.quiz.lesson06.model.FavoritUrl">
+		SELECT
+			`id`
+			, `name`
+			, `url`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`favorit_url`
+		WHERE
+			`url` = #{url}
+	</select>
 </mapper>

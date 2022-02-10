@@ -25,7 +25,14 @@
 		
 		<div class="form-group">
 			<label for="url">주소</label>
-			<input type="text" id="url" name="url" class="form-control mr-5" placeholder="즐겨찾기 주소">
+			<div class="form-inline">
+				<input type="text" id="url" name="url" class="form-control col-10 mr-5" placeholder="즐겨찾기 주소">
+				<button type="button" id="urlCheckBtn" class="btn btn-info">중복 확인</button>
+			</div>	
+			<!-- <div id="urlStatusArea"></div> -->
+			
+			<small id="isDuplicationText" class="text-danger d-none">중복된 url입니다.</small>
+			<small id="availableUrlText" class="text-success d-none">저장가능한 url입니다.</small>
 		</div>
 		
 		<button type="submit" id="submitBtn" class="btn btn-success btn-block">추가</button>
@@ -33,7 +40,46 @@
 	
 <script>
 	$(document).ready(function() {
+		// 중복 버튼 확인 클릭 
+		$('#urlCheckBtn').on('click', function(e) {
+	
+			let url = $('#url').val().trim();
+			
+			if (url == '') {
+				alert("검사할 url을 입력해주세요.");
+				return;
+			}
+			 
+			if (url.startsWith('http') == false && url.startsWith('https') == false) {
+				alert("주소 형식이 잘못되었습니다.");
+				return;
+			}
+			
+			// 이름이 중복됐는지 확인 
+			$.ajax({
+				type : "POST"
+				, url : "/lesson06/is_duplication_url"
+				, data : {"url":url}
+				, success : function(data) {
+					if (data.urlResult == true) {
+						// 중복일 때
+						$('#isDuplicationText').removeClass('d-none');
+						$('#availableUrlText').addClass('d-none');
+					} else {
+						// 중복이 아닐 때 
+						$('#availableUrlText').removeClass('d-none');
+						$('#isDuplicationText').addClass('d-none');
+					}
+				}
+				, error : function(e) {
+					alert("error : " + e);
+				}
+			});
+		});
+		
+		// 즐겨찾기 추가 
 		$('#submitBtn').on('click', function(e) {
+			e.preventDefault();
 			
 			let name = $('#name').val().trim();
 			if (name == '') {
@@ -41,30 +87,22 @@
 				return;
 			}
 			
-			let url = $('#url').val();
-			if (url.length < 1) {
-				alert("주소를 입력하세요.");
+			// 중복확인 체크 
+			if ($('#availableUrlText').hasClass('d-none') == true) {
+				// 저장할 수 있는 문구가 없으면 검사를 다시 해야함 
+				alert("다시 중복 확인을 해주세요.");
 				return;
 			}
 			
-			// http도 아니고 https도 아닐 때 => alert();을 띄워야함 
-			if (url.startsWith('http') == false && url.startsWith('https') == false) {
-				alert("주소 형식이 잘못되었습니다.");
-				return;
-			}
-			
-			// 서버 호출 
 			$.ajax({
 				type : "POST"
-				, url : "/lesson06/quiz01_2"
+				, url : "/lesson06/quiz02_3"
 				, data : {"name":name, "url":url}
 				, success : function(data) {
-					// alert(data.result);
 					if (data.result == 'success') {
-						// 목록 화면으로 이동 
-						location.href = "/lesson06/quiz01_3"
+						location.href = "/lesson06/quiz02_4";
 					} else {
-						alert("error");
+						alert("주소가 저장되지 못하였습니다.");
 					}
 				}
 				, error : function(e) {

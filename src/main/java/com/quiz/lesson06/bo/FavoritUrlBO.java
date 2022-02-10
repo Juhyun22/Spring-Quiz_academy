@@ -21,4 +21,8 @@ public class FavoritUrlBO {
 	public List<FavoritUrl> getFavoritUrlList() {
 		return favoritUrlDAO.selectFavoritUrlList();
 	}
+	
+	public FavoritUrl getFavoritByUrl(String url) {
+		return favoritUrlDAO.selectFavoritByUrl(url);
+	}
 }
