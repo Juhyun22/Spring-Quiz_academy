@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.icon:hover {
+	text-decoration: none;
+}
+
+nav {
+	background-color: #f89b00;
+}
+
+.reserve-title {
+	height: 100px;
+}
