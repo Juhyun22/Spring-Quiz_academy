@@ -52,4 +52,12 @@
 		WHERE
 			`url` = #{url}
 	</select>
+	
+	<delete id="deleteFavoritUrlById" parameterType="int">
+		DELETE
+		FROM
+			`favorit_url`
+		WHERE
+			`id` = #{id}
+	</delete>
 </mapper>

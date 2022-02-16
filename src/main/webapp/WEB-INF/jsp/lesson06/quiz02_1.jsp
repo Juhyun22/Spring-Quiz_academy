@@ -61,7 +61,7 @@
 				, url : "/lesson06/is_duplication_url"
 				, data : {"url":url}
 				, success : function(data) {
-					if (data.urlResult == true) {
+					if (data.result == true) {
 						// 중복일 때
 						$('#isDuplicationText').removeClass('d-none');
 						$('#availableUrlText').addClass('d-none');
@@ -82,6 +82,8 @@
 			e.preventDefault();
 			
 			let name = $('#name').val().trim();
+			let url = $('#url').val().trim();
+			
 			if (name == '') {
 				alert("제목을 입력하세요.");
 				return;
@@ -99,7 +101,8 @@
 				, url : "/lesson06/quiz02_3"
 				, data : {"name":name, "url":url}
 				, success : function(data) {
-					if (data.result == 'success') {
+					if (data.result == "success") {
+						alert("성공");
 						location.href = "/lesson06/quiz02_4";
 					} else {
 						alert("주소가 저장되지 못하였습니다.");

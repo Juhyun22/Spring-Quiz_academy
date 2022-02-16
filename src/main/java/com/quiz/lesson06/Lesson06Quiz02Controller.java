@@ -75,4 +75,23 @@ public class Lesson06Quiz02Controller {
 		
 		return "lesson06/quiz02_2";
 	}
+	
+	// 즐겨찾기 삭제 - AJAX 호출로 요청 
+	@PostMapping("/lesson06/delete_favorite")
+	@ResponseBody
+	public Map<String, String> deleteFavorite(
+			@RequestParam("id") int id) {
+		
+		// DB delete
+		int deleteRowCount = favoritUrlBO.deleteFavoritUrlById(id);
+		
+		// return 
+		Map<String, String> result = new HashMap<>();
+		result.put("result", "success");
+		if (deleteRowCount < 1) {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
 }

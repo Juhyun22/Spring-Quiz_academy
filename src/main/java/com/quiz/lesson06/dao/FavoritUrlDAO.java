@@ -19,4 +19,6 @@ public interface FavoritUrlDAO {
 	// public boolean existFavoritByUrl(@Param("url") String url);
 	
 	public FavoritUrl selectFavoritByUrl(String url);
+	
+	public int deleteFavoritUrlById(int id);
 }

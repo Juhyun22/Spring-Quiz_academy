@@ -40,12 +40,17 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${favoritUrlList}" var="item" varStatus="status">
-				<c:set var="id" value="${item.id}"/>
 					<tr>
-						<td>${status.count}</td>
+						<td>${item.id}</td>
 						<td>${item.name}</td>
 						<td>${item.url}</td>
-						<td><button type="submit" class="deleteBtn btn btn-danger" id="deleteBtn" name="${id}">삭제</button></td>
+						<td>
+							<%-- 1) name 속성과 value 속성을 이용해서 삭제버튼 감지 --%>
+							<%-- <button type="button" name="delBtn" class="btn btn-danger" value="${item.id}">삭제</button> --%>
+							
+							<%-- 2) data를 이용해서 태그에 임시 저장해놓기 --%>
+							<button type="button" class="del-btn btn btn-danger" data-favorite-id="${item.id}">삭제</button>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -54,10 +59,36 @@
 <script>
 	$(document).ready(function(e) {
 		
-		$('#deleteBtn').on('click', function(e) {
-			let id = ${id};
+		// 1) name 속성과 value 속성을 이용해서 삭제버튼 감지 
+		/* $('td').on('click', 'button[name=delBtn]' ,function(e) {
+			let id = e.target.value;
+			// let id = $(this).attr('value');
 			
 			alert(id);
+		}); */
+	
+		// 2) data를 이용해서 태그에 임시 저장해놓기
+		// 태그: data-favorite-id 속성            data-    그 뒤부터는 우리가 이름을 정한다. (반드시 data-)
+		// 자바스크립트: $(this).data('favorite-id');
+		$('.del-btn').on('click', function(e) {
+			let id = $(this).data('favorite-id');
+			
+			$.ajax({
+				type: "POST"
+				, url: "/lesson06/delete_favorite"
+				, data: {"id":id}
+				, success: function(data) {
+					if (data.result == "success") {
+						alert("성공");
+						location.reload();
+					} else {
+						alert("삭제하는데 실패하였습니다. 관리자에게 문의해주세요.");
+					}
+				}
+				, error: function(e) {
+					alert("error : " + e);
+				}
+			});
 		});
 	});
 </script>	
