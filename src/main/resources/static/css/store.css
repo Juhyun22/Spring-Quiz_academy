@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.wrap {
+	width: 700px;
+	margin: 0 auto;
+}
+
+header {
+	height: 100px
+}
+
+.logo:hover {
+	text-decoration: none;
+}
+
+.box {
+	border: 1px solid #17a2b8;
+	border-radius: 10px
+}
+
+.store_info {
+	color: black;
+}
+
+.store_info:hover {
+	background-color: #CCFFFF;
+	text-decoration: none;
+}
+
+footer {
+	height: 50px
+}

@@ -5,8 +5,32 @@
  <mapper namespace="com.quiz.lesson02.dao.StoreDAO">
     <select id="selectStoreList" resultType="com.quiz.lesson02.model.Store">
         SELECT
-            *
+            `id`
+			, `name`
+			, `phoneNumber`
+			, `address`
+			, `businessNumber`
+			, `introduce`
+			, `createdAt`
+			, `updatedAt`
         FROM
             `store`
+    </select>
+    
+    <select id="selectStoreListById" parameterType="int"
+    resultType="com.quiz.lesson02.model.Store">
+    	 SELECT
+            `id`
+			, `name`
+			, `phoneNumber`
+			, `address`
+			, `businessNumber`
+			, `introduce`
+			, `createdAt`
+			, `updatedAt`
+        FROM
+            `store`
+        WHERE 
+        	`id` = #{id};
     </select>
  </mapper>
